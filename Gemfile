@@ -11,8 +11,10 @@ gem 'rails', '~> 5.2.0.beta2'
 gem 'bootstrap-sass', '>=3.3.7'
   # ADD THIS GEM TO PASS INTEGRATION TEST
   gem 'rails-controller-testing'
+###############################################
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# gem 'sqlite3', '=> 1.3.13'
+###############################################
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -52,6 +54,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  # PRODUCTION ############
+  gem 'sqlite3', '>=1.3.13'
+  #########################
 end
 
 group :development do
@@ -65,3 +70,10 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+####################
+group :production do
+  gem 'pg'
+end
+####################
+
