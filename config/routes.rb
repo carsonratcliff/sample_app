@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+  get 'password_resets/edit'
   root 'static_pages#home'
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
@@ -11,5 +13,7 @@ Rails.application.routes.draw do
   resources :users
   # 11.1 - Account activation route
   resources :account_activations, only: [:edit]
+  # 12.1 Password resets
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   
 end
