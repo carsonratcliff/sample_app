@@ -12,7 +12,10 @@ User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar"
-             admin: true)
+             admin: true,
+             # 11.4 - Activating seed users by default
+             activated: true,
+             activated_at: Time.zone.now))
 
 99.times do |n|
   name  = Faker::Name.name
@@ -21,5 +24,8 @@ User.create!(name:  "Example User",
   User.create!(name:  name,
                email: email,
                password:              password,
-               password_confirmation: password)
+               password_confirmation: password,
+               # 11.4 - Activating seed users by default
+               activated: true,
+               activated_at: Time.zone.now)
 end

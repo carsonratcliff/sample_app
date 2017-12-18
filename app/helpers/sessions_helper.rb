@@ -30,7 +30,8 @@ module SessionsHelper
     	# 9.29 
     	#raise       # The tests still pass, so this branch is currently untested.
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      # 11.28 - Appended for generalized authentification? method
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
