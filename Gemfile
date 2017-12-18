@@ -55,7 +55,7 @@ group :development, :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   # PRODUCTION ############
-  gem 'sqlite3', '>=1.3.13'
+  gem 'sqlite3', '1.3.13'
   #########################
 end
 
@@ -73,7 +73,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 ####################
 group :production do
-  gem 'pg'
+  gem 'pg', '>=0.20.0'
 end
 ####################
 
