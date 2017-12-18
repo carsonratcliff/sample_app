@@ -11,6 +11,9 @@ gem 'faker', '>=1.7.3'
 # $ rails db:migrate:reset
 # $ rails db:seed
 
+# adding CarrierWave image uploader
+gem 'carrierwave', '>=1.1.0'
+
 # 10.44 - In order to paginate listing of users
 gem 'will_paginate', '>=3.1.6'
 gem 'bootstrap-will_paginate', '>=1.0.0'
@@ -46,8 +49,9 @@ gem 'jbuilder', '~> 2.5'
   gem 'bcrypt', '~> 3.1.7'
   # UNCOMMENTED FOR PASSWORD INCORPORATION, install in terminal
 
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+# Use ActiveStorage variant, (image resizing)
+ gem 'mini_magick', '~> 4.8'
+ gem 'fog-aws',     '>=2.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

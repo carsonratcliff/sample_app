@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    # 13.11 - A user has many microposts
+    has_many :microposts, dependent: :destroy
 	
     # 9.3, 11.3 - added account activation
 	attr_accessor :remember_token, :activation_token, :reset_token
@@ -73,6 +75,14 @@ class User < ApplicationRecord
     # 12.17 - Returns true if a password reset has expired.
     def password_reset_expired?
         reset_sent_at < 2.hours.ago
+    end
+
+    # 13.46 - Preliminary micropost statud feed
+    # Defines a proto-feed.
+    # See "Following users" for the full implementation.
+    def feed
+        #microposts
+        Micropost.where("user_id = ?", id)
     end
 
     # 11.3 - Adding account activation

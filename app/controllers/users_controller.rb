@@ -22,6 +22,8 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    # 13.23 - Adding instance variable @microposts the user show action
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def create
@@ -74,14 +76,14 @@ class UsersController < ApplicationController
   	# 10.15 - Before filters
 
   	# Confirms a logged-in user.
-  	def logged_in_user
-      unless logged_in?
-      	# 10.31 - adding store_location to the logged-in user before filter
-      	store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+  	#def logged_in_user
+    #  unless logged_in?
+    #  	# 10.31 - adding store_location to the logged-in user before filter
+    #  	store_location
+    #    flash[:danger] = "Please log in."
+    #    redirect_to login_url
+    #  end
+    #end
 
     # 10.25 - Confirms the correct user
     def correct_user
