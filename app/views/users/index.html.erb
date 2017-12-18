@@ -1,0 +1,15 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<! If paginating (users) >
+<%= will_paginate %>
+
+<ul class="users">
+ <! <% @users.each do |user| %> 
+  	<! Relying on _User partial >
+    <%= render @users %>
+  <! <% end %>
+</ul>
+
+<! If paginating (users) >
+<%= will_paginate %>

@@ -12,6 +12,11 @@ module SessionsHelper
   	cookies.permanent[:remember_token] = user.remember_token
   end
 
+  # 10.27 - Returns true if the given user is the current user.
+  def current_user?(user)
+    user == current_user
+  end
+
   # Returns the current logged-in user (if any). *not sure if necessary
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
@@ -49,6 +54,18 @@ module SessionsHelper
   	forget(current_user)
     session.delete(:user_id)
     @current_user = nil
+  end
+
+# 10.30 - IMPLEMENTING FRIENDLY FORWARDING (STORING REQ. LOC. THEN REDIRECTING TO IT)
+  # Redirects to stored location (or to the default).
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # Stores the URL trying to be accessed.
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 
 end
