@@ -22,7 +22,7 @@ gem 'bootstrap-will_paginate', '>=1.0.0'
 gem 'rails', '~> 5.2.0.beta2'
 gem 'bootstrap-sass', '>=3.3.7'
   # ADD THIS GEM TO PASS INTEGRATION TEST
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '>=1.0.2'
 ###############################################
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '=> 1.3.13'
@@ -81,12 +81,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-#group :test do
-#  gem 'rails-controller-testing', '1.0.2'
-#  gem 'minitest-reporters',       '1.1.14'
-#  gem 'guard',                    '2.14.1'
-#  gem 'guard-minitest',           '2.4.6'
-#end
+group :test do
+  gem 'rails-controller-testing', '>=1.0.2'
+  gem 'minitest-reporters',       '1.1.14'
+  gem 'guard',                    '2.14.1'
+  gem 'guard-minitest',           '2.4.6'
+end
 
 ####################
 group :production do

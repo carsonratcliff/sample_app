@@ -1,7 +1,18 @@
 class User < ApplicationRecord
     # 13.11 - A user has many microposts
     has_many :microposts, dependent: :destroy
-	
+	# 14.2 - Adding active relationships has_many association
+    has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+    # 14.12 - user.followers using passive relationships
+    has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+    # 14.8 - Adding the User model following association
+    has_many :following, through: :active_relationships, source: :followed
+    # 14.12 - Implementing user.followers using passive relationships
+    has_many :followers, through: :passive_relationships, source: :follower
     # 9.3, 11.3 - added account activation
 	attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email
@@ -82,7 +93,38 @@ class User < ApplicationRecord
     # See "Following users" for the full implementation.
     def feed
         #microposts
-        Micropost.where("user_id = ?", id)
+        #Micropost.where("user_id = ?", id)
+        
+        # 14.44
+        #Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
+        
+        # 14.46 - Key-value pairs in the feed's where method
+        #Micropost.where("user_id IN (:following_ids) OR user_id = :user_id",
+        #            following_ids: following_ids, user_id: id)
+        
+        # 14.47 - Final implementation
+        following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+        Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
+    end
+
+    # 14.10 - Utility methods for following
+    # Follows a user.
+    def follow(other_user)
+        #following << other_user
+        # 14.44 - Initial working feed
+        active_relationships.create(followed_id: other_user.id)
+    end
+
+    # Unfollows a user.
+    def unfollow(other_user)
+        following.delete(other_user)
+    end
+
+    # Returns true if the current user is following the other user.
+    def following?(other_user)
+        following.include?(other_user)
     end
 
     # 11.3 - Adding account activation
